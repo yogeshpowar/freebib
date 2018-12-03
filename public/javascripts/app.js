@@ -23,6 +23,9 @@ angular.module('runBuddies', [])
             $scope.name = "";
             $scope.entry = null;
             $scope.bibs = resp.data;
+            if (resp.data.length == 0) {
+                alert("No data found");
+            }
             console.log(resp);
         });
     };
@@ -34,6 +37,9 @@ angular.module('runBuddies', [])
             $scope.bib = "";
             $scope.bibs = resp.data;
             $scope.entry = null;
+            if (resp.data.length == 0) {
+                alert("No data found");
+            }
             console.log(resp);
         });
     };
