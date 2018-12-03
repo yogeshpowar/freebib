@@ -9,25 +9,45 @@ html(lang="en", ng-app='runBuddies')
 body.ng-view(autoscroll="true")
     div.container(ng-controller="main")
         br
-        form
-            div.form-group.row
-                label.col-sm-1.col-form-label(for="bib") Bib
-                input.col-sm-2.form-control(type="text", id="bib", placeholder="Enter BIB", ng-model="bib")
-                button.col-sm-2.btn.btn-primary.mb-2(type="button" ng-click="searchBib(bib)") Bib Search
+        div.row
+            div.card.col-sm-5
+                form
+                    div.form-group.row
+                        input.col-sm-8.form-control(type="text", id="bib", placeholder="Enter BIB", ng-model="bib")
+                        button.col-sm-4.btn.btn-primary.mb-2(type="button" ng-click="searchBib(bib)") Bib Search
 
-            div.form-group.row
-                label.col-sm-1.col-form-label(for="name") Name
-                input.col-sm-2.form-control(type="text", id="name", placeholder="Enter Name/Surname", ng-model="name")
-                button.col-sm-2.btn.btn-secondary.mb-2(type="button" ng-click="searchName(name)") Name Search
+                    div.form-group.row
+                        input.col-sm-8.form-control(type="text", id="name", placeholder="Enter Name/Surname", ng-model="name")
+                        button.col-sm-4.btn.btn-secondary.mb-2(type="button" ng-click="searchName(name)") Name Search
 
-        div.table-responsive
-            table.table
-                thead
-                    tr
-                        td(ng-repeat='h in headers') {{h}}
-                tbody
-                    tr(ng-repeat='e in bibs')
-                        td(ng-repeat='h in headers') {{e[h]}}
+                    div.form-group.row(ng-if="entry", style="background-color:lightblue")
+                        br
+                        label.col-form-label(for="collectedByName")
+                            strong Update Collected By for {{entry.bib}}
+                        input.col-sm-11.form-control(type="text", id="collectedByName", placeholder="Name", ng-model="collectedByName")
+                        input.col-sm-11.form-control(type="text", id="collectedByEmail", placeholder="Email", ng-model="collectedByEmail")
+                        input.col-sm-11.form-control(type="text", id="collectedByPhone", placeholder="Phone", ng-model="collectedByPhone")
+                        button.btn.btn-success.mb-2(type="button", ng-click="updateBib(collectedByName, collectedByEmail, collectedByPhone)") Update Collected By
+
+            div.card.col-sm-1
+            div.card.col-sm-6(ng-if="entry")
+                 div.card-header
+                     {{entry.bib}}
+                 ul.list-group.list-group-flush
+                     li.list-group-item(ng-repeat='h in headers')
+                         {{h}}: {{entry[h]}}
+
+            div.table-responsive
+                table.table
+                    thead
+                        tr
+                            td(ng-repeat='h in headers') {{h}}
+                    tbody
+                        tr(ng-repeat='e in bibs')
+                            td(ng-repeat='h in headers')
+                                button.btn.btn-info(ng-if="h == 'bib' && e.isCollected", ng-click="selectBib(e)") {{e[h]}}
+                                button.btn.btn-warning(ng-if="h == 'bib' && !e.isCollected", ng-click="selectBib(e)") {{e[h]}}
+                                p(ng-if="h != 'bib'") {{e[h]}}
 
 
     // Optional JavaScript

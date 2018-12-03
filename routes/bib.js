@@ -65,8 +65,9 @@ router.post('/update', function(req, res, next) {
         }
     };
 
-    if (query["isCollected"] && updateTs) {
+    if (updateTs) {
         query["collectedTs"] = new Date();
+        query["isCollected"] = true;
     } else {
         query["isCollected"] = false;
     }
@@ -77,11 +78,5 @@ router.post('/update', function(req, res, next) {
 
         return res.send({ success: true});
     });
-
-    /*
-        "isCollected": false
-            */
-
-    var collection = db.getCollection('bibs');
 });
 module.exports = router;
