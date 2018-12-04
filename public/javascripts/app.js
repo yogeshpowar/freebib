@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('runBuddies', [])
+angular.module('freebib', [])
 .controller('main', function($scope, $locale, $http) {
 	$scope.headers = [
 		"bib",

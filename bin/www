@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('runBuddies:server');
+var debug = require('debug')('Freebib:server');
 var http = require('http');
 
 var db = require('../db');
@@ -55,7 +55,7 @@ app.set('port', port);
 var server = http.createServer(app);
 
 
-db.connect('mongodb://localhost:27017/runBuddies', function(err) {
+db.connect('mongodb://localhost:27017/freebib', function(err) {
     /**
      * Listen on provided port, on all network interfaces.
      */
