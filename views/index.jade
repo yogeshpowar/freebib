@@ -31,7 +31,7 @@ body.ng-view(autoscroll="true")
 
             div.card.col-sm-1
                 img.img-fluid(src="/images/run.gif")
-            div.card.col-sm-6(ng-if="entry")
+            div.card.col-sm-6(ng-if="entry", style="background-color:orange")
                  div.card-header
                      {{entry.bib}}
                  ul.list-group.list-group-flush
