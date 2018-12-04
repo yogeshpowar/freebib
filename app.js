@@ -11,6 +11,7 @@ var db = require('./db');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var bibs = require('./routes/bib');
+var upload = require('./routes/upload');
 
 passport.use(new Strategy( function(username, password, cb) {
     var collection = db.getCollection('users');
@@ -55,6 +56,7 @@ app.use(passport.session());
 app.use('/', routes);
 app.use('/users', users);
 app.use('/bibs', bibs);
+app.use('/upload', upload);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -16,8 +16,13 @@ router.get('/login', function(req, res, next) {
     res.render('index');
 });
 
+router.get('/upload', function(req, res, next) {
+    res.render('upload');
+});
+
 /* GET home page. */
-router.get('/dashboard', function(req, res, next) {
+router.get('/dashboard', require('connect-ensure-login').ensureLoggedIn(),
+    function(req, res, next) {
   res.render('dashboard');
 });
 
