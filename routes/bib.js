@@ -2,6 +2,12 @@ var express = require('express');
 var router = express.Router();
 var db = require('../db');
 
+router.all('*', require('connect-ensure-login').ensureLoggedIn(),
+function(req, res, next) {
+    console.log("authenticated");
+    next();
+});
+
 router.post('/create', function(req, res, next) {
     var collection = db.getCollection('bibs');
     var keys = [ "bibCategoryId", "bib", "name", "phone",

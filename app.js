@@ -4,10 +4,35 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
+var db = require('./db');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var bibs = require('./routes/bib');
+
+passport.use(new Strategy( function(username, password, cb) {
+    var collection = db.getCollection('users');
+    collection.findOne({}, function(err, user) {
+        if (err) { console.log(err); return cb(err); }
+        if (!user) { return cb(null, false); }
+        if (user.password != password) { return cb(null, false); }
+        return cb(null, user);
+    });
+}));
+
+passport.serializeUser(function(user, cb) {
+    cb(null, user._id);
+});
+
+passport.deserializeUser(function(id, cb) {
+    var collection = db.getCollection('users');
+    collection.findOne({}, function(err, user) {
+        if (err) { return cb(err); }
+        cb(null, user);
+    });
+});
 
 var app = express();
 
@@ -22,6 +47,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);

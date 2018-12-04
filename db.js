@@ -15,7 +15,7 @@ exports.connect = function(url, done) {
         console.log("db: " + err);
         return done(err);
     }
-    state.db = db.db("runBuddies");;
+    state.db = db.db("freebib");;
     done();
   });
 };
