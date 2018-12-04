@@ -15,6 +15,13 @@ angular.module('freebib', [])
 		"collectedByPhone",
         "collectedByEmail"
 	];
+    $http.get('/version').then(function(resp) {
+        if (!resp.data) {
+            $scope.version = { version: "v0.1", source: "https://github.com/yogeshpowar/freebib" };
+            return;
+        }
+        $scope.version = resp.data;
+    });
     $scope.searchBib = function(bib) {
         $http.get('/bibs/list' + '?bib=' + bib).then(function(resp) {
             if (!resp.data) {

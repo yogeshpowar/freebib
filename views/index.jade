@@ -5,7 +5,7 @@ html(lang="en", ng-app='freebib')
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
     // Bootstrap CSS
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
-    title FreeBib
+    title Freebib
 body.ng-view(autoscroll="true")
     div.container(ng-controller="main")
         br
@@ -51,6 +51,10 @@ body.ng-view(autoscroll="true")
                                 button.btn.btn-warning(ng-if="h == 'bib' && !e.isCollected", ng-click="selectBib(e)") {{e[h]}}
                                 p(ng-if="h != 'bib'") {{e[h]}}
 
+        div.fixed-bottom
+            p Powered by 
+                a(href="{{version.source}}") Freebib
+                |  {{version.version}}
 
     // Optional JavaScript
     // jQuery first, then Popper.js, then Bootstrap JS
