@@ -48,7 +48,7 @@ var uploadArr = function(arr, i, cb) {
 router.post('/', function (req, res, next) {
     upload(req, res, function(err) {
         if (err){
-            p(err);
+            console.log(err);
             res.json({ error_code: 1, err_desc: err });
             return;
         }
