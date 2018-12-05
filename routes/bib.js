@@ -50,6 +50,7 @@ router.get('/list', function(req, res, next) {
     });
 });
 router.post('/update', function(req, res, next) {
+    req.body.updatedBy = req.user.username;
     helper.update(req.body, function(ret) {
         return res.send(ret);
     });

@@ -8,6 +8,20 @@ html(lang="en", ng-app='freebib')
     title Freebib Uploader
 body.ng-view(autoscroll="true")
     div.container.text-center(ng-controller="upload")
+        nav.navbar.navbar-expand-lg.navbar-light.bg-light
+            a.navbar-brand(href='#') Freebib
+            button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+            span.navbar-toggler-icon
+            #navbarNav.collapse.navbar-collapse
+                ul.navbar-nav
+                    li.nav-item
+                        a.nav-link(href='/dashboard') Dashboard
+                    li.nav-item.active
+                        a.nav-link(href='/upload') Upload
+                        span.sr-only(current)
+                    li.nav-item
+                        a.nav-link(href='/logout') Logout
+            span.navbar-text #{user}
         br
         div.row
             div.card.col-sm-3
@@ -17,11 +31,13 @@ body.ng-view(autoscroll="true")
                         label.control-label(for='holder_count') Upload CSV File
                         input(ngf-select='ngf-select', ng-model='csv_file', name='csv_file', type='file')
                         button.btn.btn-primary(type='button', ng-click='submitFile(csv_file)') Submit
+                a(href="/data/freebib.csv") Download Sample CSV
             div.card.col-sm-3
+
         div.fixed-bottom
             p Powered by 
-                a(href="{{version.source}}") Freebib
-                |  {{version.version}}
+                a(href="#{version.source}") Freebib
+                |  #{version.version}
 
     // Optional JavaScript
     // jQuery first, then Popper.js, then Bootstrap JS

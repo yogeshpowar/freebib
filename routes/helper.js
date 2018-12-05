@@ -3,7 +3,7 @@ var db = require('../db');
 var update = function(i, cb) {
     var collection = db.getCollection('bibs');
     var keys = [ "bibCategoryId", "bib", "name", "phone",
-                 "email", "age", "bloodGroup", "collectedTs"];
+                 "email", "age", "bloodGroup", "collectedTs", "updatedBy"];
     var keys1 = [ "collectedByName", "collectedByPhone", "collectedByEmail" ];
 
     var query = {};

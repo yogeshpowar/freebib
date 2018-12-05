@@ -1,29 +1,31 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var version = require('../version.json');
 
 router.get('/version', function(req, res, next) {
-    var version = require('../version.json');
     return res.send(version);
 });
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { version: version } );
 });
 
 router.get('/login', function(req, res, next) {
-    res.render('index');
+    res.render('index', { version: version });
 });
 
-router.get('/upload', function(req, res, next) {
-    res.render('upload');
+router.get('/upload', require('connect-ensure-login').ensureLoggedIn(),
+    function(req, res, next) {
+    res.render('upload', { user: req.user.username, version: version });
 });
 
 /* GET home page. */
 router.get('/dashboard', require('connect-ensure-login').ensureLoggedIn(),
     function(req, res, next) {
-  res.render('dashboard');
+        console.log(req.user);
+  res.render('dashboard', { user: req.user.username, version: version });
 });
 
 router.post('/login', passport.authenticate('local', {
