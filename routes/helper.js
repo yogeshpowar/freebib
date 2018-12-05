@@ -1,4 +1,5 @@
 var db = require('../db');
+var sms = require('./sms');
 
 var update = function(i, cb) {
     var collection = db.getCollection('bibs');
@@ -9,15 +10,19 @@ var update = function(i, cb) {
     var query = {};
     var collection = db.getCollection('bibs');
     var updateTs = false;
-
+    var msg;
     for (var k in keys) {
         query[keys[k]] = i[keys[k]];
     };
+
+    msg = "Hello " + query.name + ", Your bib " +
+              query.bib + " has been collected by ";
 
     for (k in keys1) {
         if (i[keys1[k]]) {
             query[keys1[k]] = i[keys1[k]];
             updateTs = true;
+            msg += " " + i[keys1[k]];
         }
     };
 
@@ -44,7 +49,14 @@ var update = function(i, cb) {
         if (err) {
             return cb({success: false, err: err});
         };
-
+        if (i.bulk) {
+            /* Skip sending SMS for bulk upload */
+            return cb({ success: true});
+        }
+        sms.send({
+            mobile: query.phone,
+            msg:  msg
+        }, function(ret) { });
         return cb({ success: true});
     });
 };

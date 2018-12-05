@@ -40,6 +40,7 @@ var uploadArr = function(arr, i, cb) {
     if (arr.length == i) {
         return cb();
     }
+    arr[i].bulk = true;
     helper.update(arr[i], function(){
         uploadArr(arr, ++i, cb);
     });
