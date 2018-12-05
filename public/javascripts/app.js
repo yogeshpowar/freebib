@@ -13,7 +13,9 @@ angular.module('freebib', [])
 		"isCollected",
 		"collectedByName",
 		"collectedByPhone",
-        "collectedByEmail"
+        "collectedByEmail",
+        "collectedTs",
+        "updatedBy"
 	];
     $http.get('/version').then(function(resp) {
         if (!resp.data) {
