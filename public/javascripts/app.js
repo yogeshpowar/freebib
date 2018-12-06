@@ -2,6 +2,7 @@
 
 angular.module('freebib', [])
 .controller('main', function($scope, $locale, $http) {
+    $scope.controls = { loading:  false };
 	$scope.headers = [
 		"bib",
 		"name",
@@ -17,7 +18,9 @@ angular.module('freebib', [])
         "collectedTs",
         "updatedBy"
 	];
+    $scope.controls.loading = true;
     $http.get('/version').then(function(resp) {
+        $scope.controls.loading = false;
         if (!resp.data) {
             $scope.version = { version: "v0.1", source: "https://github.com/yogeshpowar/freebib" };
             return;
@@ -25,7 +28,9 @@ angular.module('freebib', [])
         $scope.version = resp.data;
     });
     $scope.searchBib = function(bib) {
+        $scope.controls.loading = true;
         $http.get('/bibs/list' + '?bib=' + bib).then(function(resp) {
+            $scope.controls.loading = false;
             if (!resp.data) {
                 return;
             }
@@ -39,7 +44,9 @@ angular.module('freebib', [])
         });
     };
     $scope.searchName = function(name) {
+        $scope.controls.loading = true;
         $http.get('/bibs/list' + '?name=' + name).then(function(resp) {
+            $scope.controls.loading = false;
             if (!resp.data) {
                 return;
             }
@@ -77,7 +84,9 @@ angular.module('freebib', [])
             return;
         }
 
+        $scope.controls.loading = true;
         $http.post('/bibs/update', data).then(function(resp) {
+            $scope.controls.loading = false;
             if (resp.data.success) {
             } else {
                 alert("Failed to Update Data");

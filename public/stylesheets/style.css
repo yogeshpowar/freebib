@@ -1,8 +1,44 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+
+.ajax-loader {
+    position: fixed;
+    margin: auto;
+    z-index: 1002;
+    left: 50%;
+    top: 50%;
+    animation-name: none;
+    border-radius: 60px;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    width: 7%;
+    height: 7%;
+}
+
+.ajax-loader-div {
+    height: 100%;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    opacity: 0.5;
+    z-index: 1001;
+}
+
+.ajax-loader-img {
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
