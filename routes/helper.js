@@ -16,14 +16,22 @@ var update = function(i, cb) {
         query[keys[k]] = i[keys[k]];
     };
 
+    if (!query.eventName) {
+        query.eventName = "";
+    }
+
     msg = query.eventName + " bib# " + query.bib + " for " +
-          query.nam + " has been collected  by ";
+          query.name + " has been collected  by ";
 
     for (k in keys1) {
         if (i[keys1[k]]) {
             query[keys1[k]] = i[keys1[k]];
             updateTs = true;
-            msg += " " + i[keys1[k]];
+            if (i[keys1[k]] == "Self") {
+                msg += " you."
+            } else {
+                msg += " " + i[keys1[k]];
+            }
         }
     };
 

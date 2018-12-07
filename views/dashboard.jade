@@ -46,10 +46,10 @@ body.ng-view(autoscroll="true")
                         input.col-sm-11.form-control(type="text", id="collectedByName", placeholder="Name", ng-model="collectedByName")
                         input.col-sm-11.form-control(type="text", id="collectedByEmail", placeholder="Email", ng-model="collectedByEmail")
                         input.col-sm-11.form-control(type="text", id="collectedByPhone", placeholder="Phone", ng-model="collectedByPhone")
-                        hr
+                        label
                         button.btn.btn-success.mb-2(type="button", ng-click="updateBib('self', collectedByEmail, collectedByPhone)") Self Collected
                         button.btn.btn-dark.mb-2(type="button", ng-click="updateBib('last', collectedByEmail, collectedByPhone)") Last Entry
-                        hr
+                        label
                         button.btn.btn-danger.mb-2(type="button", ng-click="updateBib(collectedByName, collectedByEmail, collectedByPhone)") Update Collected By
 
             div.card.col-sm-1

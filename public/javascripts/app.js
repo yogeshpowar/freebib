@@ -108,8 +108,8 @@ angular.module('freebib', [])
         $scope.collectedByNameLast = $scope.collectedByName;
         $scope.collectedByPhoneLast = $scope.collectedByPhone;
 
-        $scope.controls.loading = true;
         if (confirm("Proceed to update and send SMS")) {
+            $scope.controls.loading = true;
             $http.post('/bibs/update', data).then(function(resp) {
                 $scope.controls.loading = false;
                 if (resp.data.success) {
