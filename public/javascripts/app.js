@@ -26,6 +26,7 @@ angular.module('freebib', [])
         $scope.controls.loading = true;
         $http.get('/bibs/list' + '?bib=' + bib).then(function(resp) {
             $scope.controls.loading = false;
+            clearCollectedBy();
             if (!resp.data) {
                 return;
             }
@@ -35,13 +36,14 @@ angular.module('freebib', [])
             if (resp.data.length == 0) {
                 alert("No data found");
             }
-            console.log(resp);
+
         });
     };
     $scope.searchName = function(name) {
         $scope.controls.loading = true;
         $http.get('/bibs/list' + '?name=' + name).then(function(resp) {
             $scope.controls.loading = false;
+            clearCollectedBy();
             if (!resp.data) {
                 return;
             }
@@ -56,6 +58,11 @@ angular.module('freebib', [])
     };
     $scope.selectBib = function(e) {
         $scope.entry = e;
+    };
+    var clearCollectedBy = function() {
+        $scope.collectedByEmail = "";
+        $scope.collectedByName  = "";
+        $scope.collectedByPhone = "";
     };
     $scope.updateBib = function (collectedByName, collectedByEmail, collectedByPhone) {
         if (collectedByName == "last") {
@@ -106,11 +113,9 @@ angular.module('freebib', [])
             $http.post('/bibs/update', data).then(function(resp) {
                 $scope.controls.loading = false;
                 if (resp.data.success) {
+                    clearCollectedBy();
                     alert("Data Updated");
-                    $scope.collectedByEmail = "";
-                    $scope.collectedByName  = "";
-                    $scope.collectedByPhone = "";
-                } else {
+               } else {
                     alert("Failed to Update Data");
                 }
             });
