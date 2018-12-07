@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var db = require('./db');
+var ObjectID = require('mongodb').ObjectID;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -15,7 +16,7 @@ var upload = require('./routes/upload');
 
 passport.use(new Strategy( function(username, password, cb) {
     var collection = db.getCollection('users');
-    collection.findOne({}, function(err, user) {
+    collection.findOne({username: username}, function(err, user) {
         if (err) { console.log(err); return cb(err); }
         if (!user) { return cb(null, false); }
         if (user.password != password) { return cb(null, false); }
@@ -29,7 +30,7 @@ passport.serializeUser(function(user, cb) {
 
 passport.deserializeUser(function(id, cb) {
     var collection = db.getCollection('users');
-    collection.findOne({}, function(err, user) {
+    collection.findOne({_id: ObjectID(id)}, function(err, user) {
         if (err) { return cb(err); }
         cb(null, user);
     });
