@@ -1,5 +1,5 @@
 var unirest = require('unirest');
-var conf = require('./smsConf.json');
+var conf = require('./conf.json');
 
 var send = function(input, cb) {
     var query = conf.query;

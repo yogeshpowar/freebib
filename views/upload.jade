@@ -6,7 +6,7 @@ html(lang="en", ng-app='freebib')
     // Bootstrap CSS
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    title Freebib Uploader
+    title #{title}
 body.ng-view(autoscroll="true")
     div.container.text-center(ng-controller="upload")
         div(ng-if="controls.loading")
@@ -14,7 +14,7 @@ body.ng-view(autoscroll="true")
                 img.ajax-loader(src="images/run.gif")
 
         nav.navbar.navbar-expand-lg.navbar-light.bg-light
-            a.navbar-brand(href='#') Freebib
+            a.navbar-brand(href='#') #{brand}
             button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
             span.navbar-toggler-icon
             #navbarNav.collapse.navbar-collapse

@@ -3,21 +3,7 @@
 angular.module('freebib', [])
 .controller('main', function($scope, $locale, $http) {
     $scope.controls = { loading:  false };
-	$scope.headers = [
-		"bib",
-		"name",
-		"email",
-		"phone",
-		"age",
-		"bibCategoryId",
-		"bloodGroup",
-		"isCollected",
-		"collectedByName",
-		"collectedByPhone",
-        "collectedByEmail",
-        "collectedTs",
-        "updatedBy"
-	];
+	$scope.headers = [ ];
     $scope.controls.loading = true;
     $http.get('/version').then(function(resp) {
         $scope.controls.loading = false;
@@ -26,6 +12,15 @@ angular.module('freebib', [])
             return;
         }
         $scope.version = resp.data;
+    });
+
+    $http.get('/getMapping').then(function(resp) {
+        if (!resp.data) {
+            alert("Failed to connect with server");
+            return;
+        }
+        $scope.headers = Object.keys(resp.data);
+        $scope.mapping = resp.data;
     });
     $scope.searchBib = function(bib) {
         $scope.controls.loading = true;
@@ -63,6 +58,18 @@ angular.module('freebib', [])
         $scope.entry = e;
     };
     $scope.updateBib = function (collectedByName, collectedByEmail, collectedByPhone) {
+        if (collectedByName == "last") {
+            $scope.collectedByEmail =  $scope.collectedByEmailLast;
+            $scope.collectedByName = $scope.collectedByNameLast;
+            $scope.collectedByPhone = $scope.collectedByPhoneLast;
+            return;
+        }
+        if (collectedByName == "self") {
+            $scope.collectedByName = "Self";
+            $scope.collectedByEmail =  "";
+            $scope.collectedByPhone = "";
+            return;
+        }
         var data = $scope.entry;
         var cnt = 0;
         if (!data) {
@@ -71,26 +78,42 @@ angular.module('freebib', [])
         if (collectedByName) {
             data.collectedByName = collectedByName;
             cnt++;
+        } else {
+            data.collectedByName = "";
         }
         if (collectedByEmail) {
             data.collectedByEmail = collectedByEmail;
             cnt++;
+        } else {
+            data.collectedByEmail = "";
         }
         if (collectedByPhone) {
             data.collectedByPhone = collectedByPhone;
             cnt++;
+        } else {
+            data.collectedByPhone = "";
         }
         if (cnt == 0) {
+            alert("No data entered");
             return;
         }
+        $scope.collectedByEmailLast = $scope.collectedByEmail;
+        $scope.collectedByNameLast = $scope.collectedByName;
+        $scope.collectedByPhoneLast = $scope.collectedByPhone;
 
         $scope.controls.loading = true;
-        $http.post('/bibs/update', data).then(function(resp) {
-            $scope.controls.loading = false;
-            if (resp.data.success) {
-            } else {
-                alert("Failed to Update Data");
-            }
-        });
+        if (confirm("Proceed to update and send SMS")) {
+            $http.post('/bibs/update', data).then(function(resp) {
+                $scope.controls.loading = false;
+                if (resp.data.success) {
+                    alert("Data Updated");
+                    $scope.collectedByEmail = "";
+                    $scope.collectedByName  = "";
+                    $scope.collectedByPhone = "";
+                } else {
+                    alert("Failed to Update Data");
+                }
+            });
+        }
     };
 });

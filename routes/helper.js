@@ -4,7 +4,8 @@ var sms = require('./sms');
 var update = function(i, cb) {
     var collection = db.getCollection('bibs');
     var keys = [ "bibCategoryId", "bib", "name", "phone",
-                 "email", "age", "bloodGroup", "collectedTs", "updatedBy"];
+                 "email", "age", "bloodGroup", "collectedTs", "updatedBy",
+                 "gender", "eventName" ];
     var keys1 = [ "collectedByName", "collectedByPhone", "collectedByEmail" ];
 
     var query = {};
@@ -15,8 +16,8 @@ var update = function(i, cb) {
         query[keys[k]] = i[keys[k]];
     };
 
-    msg = "Hello " + query.name + ", Your bib " +
-              query.bib + " has been collected by ";
+    msg = query.eventName + " bib# " + query.bib + " for " +
+          query.nam + " has been collected  by ";
 
     for (k in keys1) {
         if (i[keys1[k]]) {

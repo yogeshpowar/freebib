@@ -1,0 +1,31 @@
+{
+    "brand": "Freebib",
+    "url": "",
+    "query": {
+        "username": "",
+        "password": "",
+        "sender": ""
+    },
+    "keyMobile": "mob",
+    "keyMsg": "msg",
+    "signature": "Thanks Freebib",
+    "mapping": {
+        "bib": "Bib#",
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "age": "Age",
+        "gender": "Gender",
+        "bibCategoryId": "",
+        "bloodGroup": "",
+        "isCollected": "",
+        "collectedByName": "Collected By Name",
+        "collectedByPhone": "Collected By Phone",
+        "collectedByEmail": "Collected By Email",
+        "collectedTs": "Colletion Time",
+        "updatedBy": "Given By"
+    }
+}
+
+
+

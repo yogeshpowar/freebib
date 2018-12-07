@@ -11,7 +11,7 @@ function(req, res, next) {
 router.post('/create', function(req, res, next) {
     var collection = db.getCollection('bibs');
     var keys = [ "bibCategoryId", "bib", "name", "phone",
-                 "email", "age", "bloodGroup"];
+                 "email", "age", "bloodGroup", "gender"];
     var i = req.body;
     var query = {};
     var collection = db.getCollection('bibs');
