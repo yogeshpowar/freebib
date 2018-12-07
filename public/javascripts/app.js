@@ -22,6 +22,12 @@ angular.module('freebib', [])
         $scope.headers = Object.keys(resp.data);
         $scope.mapping = resp.data;
     });
+	var clearCollectedBy = function() {
+        $scope.collectedByEmail = "";
+        $scope.collectedByName  = "";
+        $scope.collectedByPhone = "";
+		$scope.entry = null;
+    };
     $scope.searchBib = function(bib) {
         $scope.controls.loading = true;
         $http.get('/bibs/list' + '?bib=' + bib).then(function(resp) {
@@ -59,11 +65,7 @@ angular.module('freebib', [])
     $scope.selectBib = function(e) {
         $scope.entry = e;
     };
-    var clearCollectedBy = function() {
-        $scope.collectedByEmail = "";
-        $scope.collectedByName  = "";
-        $scope.collectedByPhone = "";
-    };
+
     $scope.updateBib = function (collectedByName, collectedByEmail, collectedByPhone) {
         if (collectedByName == "last") {
             $scope.collectedByEmail =  $scope.collectedByEmailLast;
@@ -75,7 +77,6 @@ angular.module('freebib', [])
             $scope.collectedByName = "Self";
             $scope.collectedByEmail =  "";
             $scope.collectedByPhone = "";
-            return;
         }
         var data = $scope.entry;
         var cnt = 0;
@@ -104,17 +105,16 @@ angular.module('freebib', [])
             alert("No data entered");
             return;
         }
-        $scope.collectedByEmailLast = $scope.collectedByEmail;
-        $scope.collectedByNameLast = $scope.collectedByName;
-        $scope.collectedByPhoneLast = $scope.collectedByPhone;
+        if (confirm("Proceed to update collected by " + $scope.collectedByName + "\nand send SMS")) {
+			$scope.collectedByEmailLast = $scope.collectedByEmail;
+			$scope.collectedByNameLast = $scope.collectedByName;
+			$scope.collectedByPhoneLast = $scope.collectedByPhone;
 
-        if (confirm("Proceed to update and send SMS")) {
             $scope.controls.loading = true;
             $http.post('/bibs/update', data).then(function(resp) {
                 $scope.controls.loading = false;
                 if (resp.data.success) {
                     clearCollectedBy();
-                    alert("Data Updated");
                } else {
                     alert("Failed to Update Data");
                 }
