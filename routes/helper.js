@@ -12,8 +12,11 @@ var update = function(i, cb) {
     var collection = db.getCollection('bibs');
     var updateTs = false;
     var msg;
+
     for (var k in keys) {
-        query[keys[k]] = i[keys[k]];
+        if (i[keys[k]]) {
+            query[keys[k]] = i[keys[k]];
+        }
     };
 
     if (!query.eventName) {
@@ -35,14 +38,13 @@ var update = function(i, cb) {
         }
     };
 
-    if (updateTs && !query["collectedTs"]) {
+    if (updateTs &&
+        !query["collectedTs"]) {
         query["collectedTs"] = new Date().toISOString();
         query["isCollected"] = true;
     } else if (updateTs) {
         /* Do not over-write isCollected */
         query["isCollected"] = true;
-    } else {
-        query["isCollected"] = false;
     }
 
     if (Number(query.bib)) {
@@ -57,7 +59,7 @@ var update = function(i, cb) {
     }, function(err, resp) {
         if (err) {
             return cb({success: false, err: err});
-        };
+        }
         if (i.bulk) {
             /* Skip sending SMS for bulk upload */
             return cb({ success: true});
