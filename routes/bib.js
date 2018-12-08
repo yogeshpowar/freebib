@@ -55,4 +55,16 @@ router.post('/update', function(req, res, next) {
         return res.send(ret);
     });
 });
+router.get('/clear', function(req, res, next) {
+    if (req.user.username == "nikhil" || req.user.username == "yogesh") {
+        if (req.query.password != "iHaveBackupOfData") {
+            return res.send({err: "password missing"});
+        }
+        var collection = db.getCollection('bibs');
+        collection.deleteMany({});
+        return res.send({});
+    } else  {
+        return res.send({err: "No access"});
+    }
+});
 module.exports = router;
