@@ -1,5 +1,4 @@
 bib,bibCategoryId,name,phone,email,age,bloodGroup,isCollected,collectedByName,collectedByPhone,collectedByEmail,collectedTs,updatedBy
 5021,1,Yogesh Powar,94230121,yogesh.por@gmail.com,36,O+ve,true,Nikhil Shah,123141,,2018-12-03T19:25:05.724Z,yogesh
-65021,1,Namrata Yogesh Powar,8894230121,esh.por@gmail.com,41,O+ve,true,Rujula,123141,,2018-11-03T19:25:05.724Z,jayesh
+65021,1,Namrata Yogesh Powar,8894230121,esh.por@gmail.com,41,O+ve,,,,,,
 2611,3,Rujula Powar,2345678,rujula@gmail.com,6,O+ve,,,,,,
-,,,,,,,,,,,,
