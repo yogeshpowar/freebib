@@ -16,6 +16,8 @@
         "phone": "Phone",
         "age": "Age",
         "gender": "Gender",
+        "distance": "Distance",
+        "tShirt": "T-Shirt Size",
         "bibCategoryId": "",
         "bloodGroup": "",
         "isCollected": "",
@@ -23,7 +25,8 @@
         "collectedByPhone": "Collected By Phone",
         "collectedByEmail": "Collected By Email",
         "collectedTs": "Colletion Time",
-        "updatedBy": "Given By"
+        "updatedBy": "Given By",
+        "notes": "Notes"
     }
 }
 
