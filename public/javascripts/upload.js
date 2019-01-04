@@ -22,7 +22,7 @@ angular.module('freebib', ['ngFileUpload'])
             if (resData.error_code === 0) {
                 alert("Data uploaded successfully");
             } else {
-                alert("Failed to uploaded data");
+                alert("Failed to uploaded data: " + resData.err_desc);
             }
         });
     };

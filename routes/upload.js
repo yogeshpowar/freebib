@@ -7,6 +7,13 @@ var csv = require('csv-to-json');
 var helper = require('./helper');
 
 //router.all('*');
+router.all('*', require('connect-ensure-login').ensureLoggedIn(),
+function(req, res, next) {
+    if (req.user.username == "nikhil" || req.user.username == "yogesh") {
+        return next();
+    }
+    return res.json({ error_code: 1, err_desc: "Access Denied" });
+});
 
 var storage = multer.diskStorage({
     //multers disk storage settings
