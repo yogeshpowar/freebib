@@ -1,8 +1,24 @@
 'use strict';
 
 angular.module('freebib', ['ngFileUpload'])
-.controller('upload', function($scope, $locale, Upload) {
+.controller('upload', function($scope, $locale, Upload, $http) {
     $scope.controls = { loading:  false };
+    $scope.getStats = function() {
+        $scope.controls.loading = true;
+        $http.get('/upload/getStats').then(function(resp) {
+            $scope.controls.loading = false;
+            if (!resp.data) {
+                alert("Failed to connect with server");
+                return;
+            }
+            if (resp.data.error_code === 1) {
+                alert(resp.data.err_desc);
+                return;
+            }
+            alert("Total Bibs: " + resp.data.total +
+                  " Collected: " + resp.data.collected);
+        });
+    };
     $scope.submitFile = function (csv_file) {
         var file = $scope.csv_file;
         if (!file) {

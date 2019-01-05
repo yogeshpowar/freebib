@@ -1,6 +1,23 @@
 var db = require('../db');
 var sms = require('./sms');
 
+var getStats = function(cb) {
+    var collection = db.getCollection('bibs');
+    collection.countDocuments({}, function(err, docs) {
+        if (err) {
+            return cb({ total: 0, collected: 0});
+        }
+        collection.countDocuments({ isCollected: true },
+            function(err, collectedDocs) {
+                if (err) {
+                    return cb({ total: 0, collected: 0});
+                }
+                return cb({ total: docs, collected: collectedDocs });
+        });
+    });
+};
+exports.getStats = getStats;
+
 var update = function(i, cb) {
     var collection = db.getCollection('bibs');
     var keys = [ "bibCategoryId", "bib", "name", "phone",

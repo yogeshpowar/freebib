@@ -38,6 +38,12 @@ body.ng-view(autoscroll="true")
                         button.btn.btn-primary(type='button', ng-click='submitFile(csv_file)') Submit
                 a(href="/data/freebib.csv") Download Sample CSV
             div.card.col-sm-3
+        br
+        div.row
+            div.card.col-sm-3
+            div.card.col-sm-6
+                button.btn.btn-success(type='button', ng-click='getStats()') getStats
+            div.card.col-sm-3
 
         div.fixed-bottom
             p Powered by 

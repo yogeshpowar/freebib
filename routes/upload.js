@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../db');
 var fs = require('graceful-fs');
 var multer = require('multer');
 var csv = require('csv-to-json');
@@ -68,6 +67,12 @@ router.post('/', function (req, res, next) {
                 return res.json({error_code: 0, err_desc: null});
             });
         });
+    });
+});
+
+router.get('/getStats', function (req, res, next) {
+    helper.getStats(function(ret) {
+        return res.json(ret);
     });
 });
 
