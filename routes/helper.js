@@ -5,7 +5,7 @@ var update = function(i, cb) {
     var collection = db.getCollection('bibs');
     var keys = [ "bibCategoryId", "bib", "name", "phone",
                  "email", "age", "bloodGroup", "collectedTs", "updatedBy",
-                 "gender", "eventName" ];
+                 "gender", "eventName", "tShirt", "distance", "notes" ];
     var keys1 = [ "collectedByName", "collectedByPhone", "collectedByEmail" ];
 
     var query = {};
